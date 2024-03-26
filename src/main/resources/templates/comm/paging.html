@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 设置页面语言为英语，并引入Thymeleaf命名空间 -->
+
+<body>
+<!-- 开始HTML body部分 -->
+
+<!-- 分页导航样式1：am-pagination -->
+<ol class="am-pagination" th:fragment="pageNav(pageInfo, prevText, nextText, prefix)">
+    <!-- 创建一个有序列表，用于分页导航。作为Thymeleaf片段可在其他模板中包含 -->
+
+    <th:block th:if="${pageInfo.hasPreviousPage}">
+        <!-- Thymeleaf条件块：检查是否有前一页 -->
+        <li class="am-pagination-prev">
+            <!-- 列表项：显示前一页链接 -->
+            <a th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a>
+            <!-- 链接的href属性和显示的文本由Thymeleaf表达式确定 -->
+        </li>
+    </th:block>
+
+    <th:block th:each="navIndex :${pageInfo.navigatepageNums}">
+        <!-- Thymeleaf迭代块：遍历分页导航页码 -->
+
+        <th:block th:if="${pageInfo.pages} <= 2">
+            <!-- Thymeleaf条件块：检查总页数是否小于或等于2页。如果是，显示所有页码链接 -->
+            <li th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                <!-- 列表项：页码链接。如果页码与当前页相等，则添加“current”类 -->
+                <a th:href="@{'/page/'+${navIndex}}" th:text="${navIndex}"></a>
+                <!-- 链接的href属性和显示的文本由Thymeleaf表达式确定 -->
+            </li>
+        </th:block>
+
+        <th:block th:if="${pageInfo.pages} > 2">
+            <!-- Thymeleaf条件块：检查总页数是否大于2页。根据当前页码位置显示不同的页码链接 -->
+            <th:block th:if="${navIndex == pageInfo.pageNum-1 || navIndex == pageInfo.pageNum || navIndex == pageInfo.pageNum+1}">
+                <!-- Thymeleaf条件块：显示当前页前后的页码链接 -->
+                <li th:class="${pageInfo.pageNum}==${navIndex}?'current':''">
+                    <!-- 列表项：页码链接。如果页码与当前页相等，则添加“current”类 -->
+                    <a th:href="@{'/page/'+${navIndex}}" th:text="${navIndex}"></a>
+                    <!-- 链接的href属性和显示的文本由Thymeleaf表达式确定 -->
+                </li>
+            </th:block>
+            <th:block th:if="${navIndex == pageInfo.pageNum-2 || navIndex == pageInfo.pageNum+2}">
+                <!-- Thymeleaf条件块：显示当前页前后第二页的“...” -->
+                <li>
+                    <span>...</span>
+                </li>
+            </th:block>
+        </th:block>
+    </th:block>
+
+    <th:block th:if="${pageInfo.hasNextPage}">
+        <!-- Thymeleaf条件块：检查是否有下一页 -->
+        <li class="am-pagination-next">
+            <!-- 列表项：显示下一页链接 -->
+            <a th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a>
+            <!-- 链接的href属性和显示的文本由Thymeleaf表达式确定 -->
+        </li>
+    </th:block>
+</ol>
+
+<!-- 分页导航样式2：pagination -->
+<div th:fragment="pageAdminNav(pageInfo)">
+    <!-- Thymeleaf片段：另一种分页导航样式 -->
+
+    <div class="clearfix">
+        <!-- 用于清除浮动以正确显示分页导航 -->
+        <ul class="pagination m-b-5 pull-right">
+            <!-- 创建一个无序列表，用于分页导航 -->
+
+            <li th:if="${pageInfo.hasPreviousPage}">
+                <!-- 列表项：显示前一页链接，用于另一种样式下 -->
+                <a th:href="@{'?page='+${pageInfo.prePage}}" aria-label="Previous">
+                    <i class="fa fa-angle-left"></i>&nbsp;上一页
+                </a>
+            </li>
+
+            <th:block th:each="nav : ${pageInfo.navigatepageNums}">
+                <!-- Thymeleaf迭代块：遍历分页导航页码，用于另一种样式下 -->
+                <li th:class="${nav==pageInfo.pageNum}?'active':''">
+                    <!-- 列表项：页码链接，适用于另一种样式。如果页码与当前页相等，则添加“active”类 -->
+                    <a th:href="@{'?page='+${nav}}" th:text="${nav}"></a>
+                    <!-- 链接的href属性和显示的文本由Thymeleaf表达式确定 -->
+                </li>
+            </th:block>
+
+            <th:block th:if="${pageInfo.hasNextPage}">
+                <!-- Thymeleaf条件块：检查是否有下一页，用于另一种样式下 -->
+                <li>
+                    <!-- 列表项：显示下一页链接 -->
+                    <a th:href="@{'?page='+${pageInfo.nextPage}}" aria-label="Next">
+                        下一页&nbsp;<i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </th:block>
+
+            <li>
+                <!-- 列表项：显示总页数 -->
+                <span th:text="'共'+${pageInfo.pages}+'页'"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

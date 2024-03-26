@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请注销</title>
+</head>
+<body>
+<div>
+    <h2 align="center">
+        <span>
+        修改成功，请
+    </span>
+        <div class="navbar-container">
+                <form name="logoutform" th:action="@{/logout}" method="post"></form>
+                <a class="header-info" sec:authorize="isAuthenticated()"
+                   href="javascript:document.logoutform.submit();">退出</a>
+
+    </h2>
+</div>
+<br>
+</form>
+<footer class="log-footer">
+    <p style="margin: 30px; color: white"><time class="comment-time" th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy年MM月dd日hh点mm分')}"></time> &copy; Powered By<br>瑟瑟小站</p>
+</footer>
+</body>
+</html>

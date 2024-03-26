@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>用户修改</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<div th:replace="/client/header::header(null,null)" />
+<br><br><br><br>
+
+<body>
+<div sec:authorize="isAuthenticated()"><!--  判断用户是否登录  -->
+    <h2 align="center">您的用户名为
+        <span sec:authentication="name" style="color: blue"></span>
+        您的权限为<span sec:authentication="principal.authorities" style="color: blue"></span>
+    </h2>
+</div>
+<div align="center" class="container">
+<!--    <form th:action="@{/updateUser}" method="post">-->
+<!--        用户名:<input type="text" name="username" /><br/>-->
+<!--        密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password"/><br/>-->
+<!--        <br>-->
+<!--        <button type="submit">修改</button>-->
+<!--    </form>-->
+
+    <form th:action="@{/updateUser}" method="post">
+        <i class="fa fa-angle-left"></i>
+        <label>新的用户名：</label>
+        <input type="text"  placeholder="请输入新的用户名" name="username" required>
+        <label for="password"><b>密码</b></label>
+        <input type="text" placeholder="输入密码" name="password" required>
+        <button type="submit">修改</button>
+        <br>
+        <a class="btn btn-purple waves-effect waves-light" href="/"><i class="fa fa-angle-left"></i> 返回首页</a >
+    </form>
+</div>
+<!--<div class="container">-->
+<!--    <label for="username"><b>用户名</b></label>-->
+<!--    <input type="text" placeholder="输入用户名" name="username" required>-->
+
+<!--    <label for="password"><b>密码</b></label>-->
+<!--    <input type="password" placeholder="输入密码" name="password" required>-->
+
+<!--    <button type="submit">修改</button>-->
+<!--</div>-->
+
+</div>
+
+
+</body>
+<div th:replace="/client/footer::footer" />
+</html>

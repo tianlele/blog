@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入jQuery库 -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <!-- 引入layer.js库 -->
+    <script th:src="@{/assets/js/layer.js}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<!-- 包含页面头部 -->
+<div th:replace="client/header::header(${article.title},null)"></div>
+<body>
+
+<!-- 返回按钮 -->
+<a href="javascript:history.back()" class="back-button">
+    <i class="fas fa-arrow-left"></i> 返回上一级
+</a>
+
+
+<!-- 主要文章内容部分 -->
+<article class="main-content post-page">
+
+    <!-- 文章标题 -->
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline" th:text="${article.title}"></h1>
+        <!-- 文章发布日期 -->
+        <div class="post-data">
+            <time th:datetime="${commons.dateFormat(article.created)}" itemprop="datePublished"
+                  th:text="'发布于 '+ ${commons.dateFormat(article.created)}"></time>
+        </div>
+    </div>
+    <br/>
+    <!-- 文章内容 -->
+    <div id="post-content" class="post-content content" th:utext="${commons.article(article.content)}"></div>
+</article>
+
+
+<!-- 包含评论部分 -->
+<div th:replace="client/comments::comments"></div>
+
+
+<!-- 返回按钮 -->
+<a href="javascript:history.back()" class="back-button02">
+    <i class="fas fa-arrow-left"></i> 返回上一级
+</a>
+
+
+<!-- 包含页脚部分 -->
+<div th:replace="client/footer::footer"></div>
+
+
+
+<!-- 使用layer.js实现图片缩放功能 -->
+<script type="text/JavaScript">
+    // 当文章中的图片被点击时，触发图片缩放功能
+    $('.post-content img').on('click', function () {
+        // 获取图片 URL
+        var imgurl = $(this).attr('src');
+        // 设置弹出层的宽度和高度，此处指定了图片为原来的1.5倍左右
+        var w = this.width * 1.5 +10;
+        var h = this.height * 1.5 + 50;
+        // 打开弹出层
+        layer.open({
+            type: 1,
+            title: false, // 不显示标题栏
+            area: [w + "px", h + "px"],
+            shadeClose: true, // 点击遮罩关闭
+            content: '\<\div style="padding:20px;">' +
+                '\<\img style="width:' + (w - 50) + 'px;" src=' + imgurl + '\>\<\/div>'//将弹出框的w减50
+        });
+    });
+</script>
+<script src="/assets/js/jquery-3.3.1.js"></script>
+<script src="/assets/js/jquery.vide.js"></script>
+</body>
+</html>
+
+

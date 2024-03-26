@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianll.blog.model.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.tianll.blog.model.domain.Article">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="created" column="created" jdbcType="DATE"/>
+            <result property="modified" column="modified" jdbcType="DATE"/>
+            <result property="categories" column="categories" jdbcType="VARCHAR"/>
+            <result property="tags" column="tags" jdbcType="VARCHAR"/>
+            <result property="allowComment" column="allow_comment" jdbcType="TINYINT"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        created,modified,categories,
+        tags,allow_comment,thumbnail
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_article
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_article
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianll.blog.model.domain.Article" useGeneratedKeys="true">
+        insert into t_article
+        ( id,title,content
+        ,created,modified,categories
+        ,tags,allow_comment,thumbnail
+        )
+        values (#{id,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR}
+        ,#{created,jdbcType=DATE},#{modified,jdbcType=DATE},#{categories,jdbcType=VARCHAR}
+        ,#{tags,jdbcType=VARCHAR},#{allowComment,jdbcType=TINYINT},#{thumbnail,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tianll.blog.model.domain.Article" useGeneratedKeys="true">
+        insert into t_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="title != null">title,</if>
+                <if test="content != null">content,</if>
+                <if test="created != null">created,</if>
+                <if test="modified != null">modified,</if>
+                <if test="categories != null">categories,</if>
+                <if test="tags != null">tags,</if>
+                <if test="allowComment != null">allow_comment,</if>
+                <if test="thumbnail != null">thumbnail,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+                <if test="created != null">#{created,jdbcType=DATE},</if>
+                <if test="modified != null">#{modified,jdbcType=DATE},</if>
+                <if test="categories != null">#{categories,jdbcType=VARCHAR},</if>
+                <if test="tags != null">#{tags,jdbcType=VARCHAR},</if>
+                <if test="allowComment != null">#{allowComment,jdbcType=TINYINT},</if>
+                <if test="thumbnail != null">#{thumbnail,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tianll.blog.model.domain.Article">
+        update t_article
+        <set>
+                <if test="title != null">
+                    title = #{title,jdbcType=VARCHAR},
+                </if>
+                <if test="content != null">
+                    content = #{content,jdbcType=VARCHAR},
+                </if>
+                <if test="created != null">
+                    created = #{created,jdbcType=DATE},
+                </if>
+                <if test="modified != null">
+                    modified = #{modified,jdbcType=DATE},
+                </if>
+                <if test="categories != null">
+                    categories = #{categories,jdbcType=VARCHAR},
+                </if>
+                <if test="tags != null">
+                    tags = #{tags,jdbcType=VARCHAR},
+                </if>
+                <if test="allowComment != null">
+                    allow_comment = #{allowComment,jdbcType=TINYINT},
+                </if>
+                <if test="thumbnail != null">
+                    thumbnail = #{thumbnail,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tianll.blog.model.domain.Article">
+        update t_article
+        set 
+            title =  #{title,jdbcType=VARCHAR},
+            content =  #{content,jdbcType=VARCHAR},
+            created =  #{created,jdbcType=DATE},
+            modified =  #{modified,jdbcType=DATE},
+            categories =  #{categories,jdbcType=VARCHAR},
+            tags =  #{tags,jdbcType=VARCHAR},
+            allow_comment =  #{allowComment,jdbcType=TINYINT},
+            thumbnail =  #{thumbnail,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

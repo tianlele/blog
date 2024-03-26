@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='文章发布',active='home'">
+<header th:replace="back/header::headerFragment(${title},${active})"></header>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>文章管理</title>-->
+<!--    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">-->
+<!--    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+<!--    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<body class="fixed-left">
+<div id="wrapper">
+<div th:replace="back/header::header-body"></div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <table class="table-hover table tab-header-area table-bordered">
+        <!--            <caption><h2>角色管理页</h2></caption>-->
+                    <tr>
+                        <th>文章标题</th>
+                        <th>发布时间</th>
+                        <th>浏览量</th>
+                        <th>所属分类</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr th:each="article : ${pages.list}">
+                        <td><a th:text="${article.title}"></a></td>
+                        <td th:text="${#dates.format(article.created,'yyyy-MM-dd')}"></td>
+                        <td th:text="${article.hits}"></td>
+                        <td th:text="${article.categories}"></td>
+                        <td><a role="button" th:href="'/admin/toUpdateContent?id='+${article.id}">编辑</a>
+                        <a onclick="return confirm('删除后不可恢复，确定删除此文章？')"  role="button" th:href="'/admin/delete?id='+${article.id}" >删除</a>
+        <!--                <a role="button" href="javascript:void(0)" th:attr="data-id=${article.Id}" >预览</a></td>-->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div th:replace="../templates/back/page.html :: page"></div>
+    <div th:replace="back/footer :: footer-content"></div>
+    <div th:replace="back/footer :: footer"></div>
+
+</div>
+</div>
+</body>
+</html>

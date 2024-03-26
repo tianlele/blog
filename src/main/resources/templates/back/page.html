@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--suppress ALL--> <!-- 去掉红色下划线-->
+<div th:fragment="page" style="text-align: center">
+    <style>
+        .page{
+            border: 1px solid blue;
+            margin-right: 5px;
+            padding: 3px 5px;
+        }
+        .page.active{
+            color: red;
+            border: 1px solid red;
+        }
+    </style>
+
+    <div style="text-align: center">
+        当前第<span th:text="${pages.pageNum}"></span>页
+        总记录数<span th:text="${pages.total}"></span>
+    </div>
+    <br/>
+    <div>
+        <a th:text="首页" th:if="${pages.pageNum>1}" th:href="@{${path}}"></a>
+        <a th:text="上一页" th:if="${pages.pageNum>1}" th:href="@{${path}+${pages.pageNum-1}}"></a>
+        <a th:href="@{${path}+${i}}" th:each="i:${#numbers.sequence(1,pages.pages)}" th:text="${i}"
+
+           th:class="${pages.pageNum==i}? 'page active':'page'"></a>
+        <a th:text="下一页" th:if="${pages.pageNum<pages.pages}" th:href="@{${path}+${pages.pageNum+1}}"></a>
+        <a th:text="尾页" th:if="${pages.pageNum<pages.pages}" th:href="@{${path}+${pages.pages}}"></a>
+    </div>
+
+</div>
+
+
+</body>
+</html>

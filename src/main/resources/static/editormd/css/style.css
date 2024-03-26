@@ -1,0 +1,115 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.title{
+    margin-top: 0px;
+    margin-left: 20px;
+}
+.textDiv{
+    /*float: left;*/
+    margin-top: 30px;
+    margin-left: 20px;
+    /*padding-right: 1px;*/
+    background-color: #00c4ff;
+    width: 350px;
+    height: 150px;
+}
+.text{
+    text-align: right;
+    /*margin-right: 20px;*/
+    width: 70px;
+    color: whitesmoke;
+
+}
+.image_div{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    /*background-color: #2A00FF;*/
+    /*width: 50px;*/
+}
+.text_div{
+    display: inline-block;
+    float: right;
+    /*margin-right: 10px;*/
+    width: 100px;
+    border-color: red;
+    text-align: right;
+}
+
+.text_all{
+    width: 350px;
+    float: left;
+    margin-left: 30px;
+}
+.list{
+    width: 350px;
+    margin-top: 30px;
+    margin-left: 20px;
+    background-color:#ddd;
+    float: none;
+    height: 570px;
+    box-shadow: 5px 5px 5px papayawhip;
+}
+.list_text{
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.list_content{
+    width: 350px;
+    height: 500px;
+}
+.list_content_article_row{
+    display: flex;
+    width: 300px;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    background-color: white;
+    line-height: 50px;
+    border: 2px solid #eee;
+    margin-top: 0px;
+}
+.list_content_article_ul{
+    margin-left: 25px;
+}
+a{
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 20px;
+}
+.number{
+    display: inline-block;
+    border-radius: 50%;
+    background-color: dodgerblue;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    line-height: 25px;
+    margin-right: 10px;
+}
+
+
+.list_content_article_row1{
+    width: 300px;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    background-color: white;
+    line-height: 50px;
+    border: 2px solid #eee;
+    margin-top: 0px;
+
+}
+
+.comment{
+    /*width: 30px;*/
+    height: 15px;
+    margin-left: 20px;
+}
